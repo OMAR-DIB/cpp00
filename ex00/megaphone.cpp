@@ -19,11 +19,11 @@ int main(int ac, char **av){
 				std::cout<<(char)std::toupper((char)av[i][j]);
 			}
 		}
-		std::cout << std::endl;
 	}
 	else
 	{
-		std::cout<<"*LOUD AND UNBEARABLE FEEDBACK NOISE*"<<std::endl;	
+		std::cout<<"*LOUD AND UNBEARABLE FEEDBACK NOISE*";	
 	}	
+	std::cout << std::endl;
 	return 0;
 }
