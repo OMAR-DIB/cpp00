@@ -1,6 +1,6 @@
 #include "contact.hpp"
 
-Contact::Contact() : firstName(""), phoneNb("0"), secret("") {}
+Contact::Contact() : firstName(""), phoneNb(""), secret("") {}
 
 void Contact::setFirstName(string firstName)
 {
@@ -17,7 +17,7 @@ void Contact::setNickname(string nickname)
     this->nickname = nickname; 
 }
 
-void Contact::setPhoneNb(string phonNb)
+void Contact::setPhoneNb(string phoneNb)
 {
     this->phoneNb = phoneNb;
 }
@@ -52,13 +52,3 @@ bool Contact::isEmpty()
 {
     return firstName.empty() && lastName.empty() && nickname.empty() && phoneNb.empty() && secret.empty();
 } 
-
-// int main()
-// {
-//     Contact contact;
-
-//     contact.setfirstName("ahmad");
-//     std::cout << contact.getfirstName() << std::endl;
-//     std::cout << contact.getPhoneNb() << std::endl;
-//     return 0;
-// }
