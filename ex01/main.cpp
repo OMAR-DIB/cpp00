@@ -1,9 +1,19 @@
 #include "phone_book.hpp"
 #include <iostream>
+using std::string;
+
+bool isValidPhoneNumber(const std::string& phoneNb) {
+    for (char c : phoneNb) {
+        if (!isdigit(c)) {
+            return false;
+        }
+    }
+    return true;
+}
 
 void add(PhoneBook& phoneBook) {
     Contact contact;
-    std::string input;
+    string input;
 
     std::cout << "Enter first name: ";
     std::getline(std::cin, input);
@@ -17,10 +27,17 @@ void add(PhoneBook& phoneBook) {
     std::getline(std::cin, input);
     contact.setNickname(input);
 
-    std::cout << "Enter phone number: ";
-    std::getline(std::cin, input);
-    contact.setPhoneNb(input);
+    while (true) {
+        std::cout << "Enter phone number: ";
+        std::getline(std::cin, input);
 
+        if (isValidPhoneNumber(input)) {
+            contact.setPhoneNb(input);
+            break;
+        } else {
+            std::cout << "Invalid phone number! Please enter only digits.\n";
+        }
+    }
     std::cout << "Enter darkest secret: ";
     std::getline(std::cin, input);
     contact.setSecret(input);
@@ -34,10 +51,14 @@ void add(PhoneBook& phoneBook) {
 }
 
 void searchContacts(PhoneBook& phoneBook) {
+    if (phoneBook.getTotalContact() == 0) {  // Check if the phone book is empty
+        std::cout << "PhoneBook is empty. No contacts to display.\n";
+        return;
+    }
     phoneBook.displayContact();
 
     std::cout << "Enter the index of the contact you want to view: ";
-    std::string indexInput;
+    string indexInput;
     std::getline(std::cin, indexInput);
 
     try {
@@ -50,7 +71,7 @@ void searchContacts(PhoneBook& phoneBook) {
 
 int main() {
     PhoneBook phoneBook;
-    std::string command;
+    string command;
 
     while (true) {
         std::cout << "Enter a command (ADD, SEARCH, EXIT): ";
@@ -70,87 +91,3 @@ int main() {
 
     return 0;
 }
-
-
-
-// #include "phone_book.hpp"
-// #include <iostream>
-
-// using std::string;
-
-// void add(PhoneBook& phoneBook)  // Pass by reference
-// {
-//     Contact contact;
-//     string input;
-
-//     std::cout << "Enter first name: ";
-//     std::getline(std::cin, input);
-//     contact.setFirstName(input);  // Assuming setFirstName is defined
-
-//     std::cout << "Enter last name: ";
-//     std::getline(std::cin, input);
-//     contact.setLastName(input);   // Assuming setLastName is defined
-
-//     std::cout << "Enter nickname: ";
-//     std::getline(std::cin, input);
-//     contact.setNickname(input);   // Assuming setNickname is defined
-
-//     std::cout << "Enter phone number: ";
-//     std::getline(std::cin, input);
-//     contact.setPhoneNb(input);
-
-//     std::cout << "Enter darkest secret: ";
-//     std::getline(std::cin, input);
-//     contact.setSecret(input);
-
-//     // Ensure the contact is not empty
-//     if (contact.isEmpty()) {  // Assuming isEmpty checks all fields are filled
-//         std::cout << "All fields must be complete.\n";
-//     }
-//     else {
-//         phoneBook.addContact(contact);
-//         std::cout << "Contact added successfully.\n";
-//     }
-// }
-
-// void searchContacts(PhoneBook& phoneBook) {
-//     // if (phoneBook.getTotalContacts() == 0) {
-//     //     std::cout << "Phonebook is empty!\n";
-//     //     return;
-//     // }
-
-//     phoneBook.displayContact();
-
-//     std::cout << "Enter the index of the contact you want to view: ";
-//     std::string indexInput;
-//     std::getline(std::cin, indexInput);
-
-//     try {
-//         int index = std::stoi(indexInput);
-//         phoneBook.displayContactDetails(index);
-//     } catch (std::invalid_argument& e) {
-//         std::cout << "Invalid index input!\n";
-//     }
-// }
-
-// int main() {
-//     PhoneBook phoneBook;  // Instantiate PhoneBook
-//     std::string command;
-
-//     while (true) {
-//         std::cout << "Enter a command (ADD, SEARCH, EXIT): ";
-//         std::getline(std::cin, command);
-
-//         if (command == "ADD") {
-//             add(phoneBook);  // Pass phoneBook by reference
-//         } else if (command == "SEARCH") {
-//             searchContacts(phoneBook);  // Display contacts
-//         } else if (command == "EXIT") {
-//             std::cout << "Exiting program.\n";
-//             break;
-//         } else {
-//             std::cout << "Invalid command.\n";
-//         }
-//     }
-//     return 0;
-// }
