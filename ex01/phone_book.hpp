@@ -4,7 +4,7 @@
 #include <istream>
 #include "contact.hpp"
 #include <iomanip>
-
+#include <string>
 
 class PhoneBook{
 private:
@@ -20,6 +20,7 @@ public:
 	void displayContactDetails(int index);
 	void searchContacts(PhoneBook& phoneBook);
 	int getTotalContact();
+
 };
 
 #endif
